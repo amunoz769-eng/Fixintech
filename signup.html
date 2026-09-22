@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro - Sistema de Gestión de Tickets</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="auth-container">
+        <div class="auth-card" style="max-width: 600px;">
+            <!-- Logo -->
+            <div class="auth-logo">
+                <svg width="24" height="24" fill="white" viewBox="0 0 24 24">
+                    <path d="M12 2L2 7v10c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V7l-10-5z"/>
+                </svg>
+            </div>
+            
+            <h1 class="text-2xl text-center mb-2">Crear Cuenta</h1>
+            <p class="text-sm text-gray-500 text-center mb-6">Completa los pasos para registrarte</p>
+            
+            <!-- Progress Steps -->
+            <div class="progress-steps">
+                <div class="progress-step active" id="step1">
+                    <div class="progress-step-circle">1</div>
+                    <span class="progress-step-label">Información</span>
+                </div>
+                <div class="progress-step" id="step2">
+                    <div class="progress-step-circle">2</div>
+                    <span class="progress-step-label">Empresa</span>
+                </div>
+                <div class="progress-step" id="step3">
+                    <div class="progress-step-circle">3</div>
+                    <span class="progress-step-label">Verificación</span>
+                </div>
+            </div>
+            
+            <!-- Formulario Paso 1 -->
+            <form id="signupStep1" class="signup-form active">
+                <div class="form-group">
+                    <label class="form-label" for="nombre">Nombre Completo</label>
+                    <input 
+                        type="text" 
+                        id="nombre" 
+                        class="form-input" 
+                        placeholder="Juan Pérez"
+                        required
+                    >
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label" for="email1">Correo Electrónico</label>
+                    <input 
+                        type="email" 
+                        id="email1" 
+                        class="form-input" 
+                        placeholder="tu@email.com"
+                        required
+                    >
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label" for="password1">Contraseña</label>
+                    <input 
+                        type="password" 
+                        id="password1" 
+                        class="form-input" 
+                        placeholder="Mínimo 8 caracteres"
+                        required
+                    >
+                </div>
+                
+                <div class="flex gap-3">
+                    <a href="index.html" class="btn btn-outline" style="flex: 1; justify-content: center;">
+                        Cancelar
+                    </a>
+                    <button type="button" onclick="nextStep(2)" class="btn btn-primary" style="flex: 1;">
+                        Siguiente
+                    </button>
+                </div>
+            </form>
+            
+            <!-- Formulario Paso 2 -->
+            <form id="signupStep2" class="signup-form" style="display: none;">
+                <div class="form-group">
+                    <label class="form-label" for="empresa">Nombre de la Empresa</label>
+                    <input 
+                        type="text" 
+                        id="empresa" 
+                        class="form-input" 
+                        placeholder="Tu Empresa S.L."
+                        required
+                    >
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label" for="telefono">Teléfono</label>
+                    <input 
+                        type="tel" 
+                        id="telefono" 
+                        class="form-input" 
+                        placeholder="+34 600 000 000"
+                        required
+                    >
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label" for="direccion">Dirección</label>
+                    <input 
+                        type="text" 
+                        id="direccion" 
+                        class="form-input" 
+                        placeholder="Calle Principal 123"
+                        required
+                    >
+                </div>
+                
+                <div class="flex gap-3">
+                    <button type="button" onclick="nextStep(1)" class="btn btn-outline" style="flex: 1;">
+                        Atrás
+                    </button>
+                    <button type="button" onclick="nextStep(3)" class="btn btn-primary" style="flex: 1;">
+                        Siguiente
+                    </button>
+                </div>
+            </form>
+            
+            <!-- Formulario Paso 3 -->
+            <form id="signupStep3" class="signup-form" style="display: none;">
+                <div class="text-center mb-6">
+                    <div style="width: 64px; height: 64px; background: #dbeafe; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem;">
+                        <svg width="32" height="32" fill="#1e40af" viewBox="0 0 24 24">
+                            <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+                        </svg>
+                    </div>
+                    <h3 class="text-lg mb-2">Verifica tu información</h3>
+                    <p class="text-sm text-gray-600">Revisa que todos los datos sean correctos</p>
+                </div>
+                
+                <div class="bg-gray-50 rounded p-4 mb-6 space-y-3">
+                    <div>
+                        <span class="text-sm text-gray-500">Nombre:</span>
+                        <p class="text-gray-900" id="reviewNombre">-</p>
+                    </div>
+                    <div>
+                        <span class="text-sm text-gray-500">Email:</span>
+                        <p class="text-gray-900" id="reviewEmail">-</p>
+                    </div>
+                    <div>
+                        <span class="text-sm text-gray-500">Empresa:</span>
+                        <p class="text-gray-900" id="reviewEmpresa">-</p>
+                    </div>
+                    <div>
+                        <span class="text-sm text-gray-500">Teléfono:</span>
+                        <p class="text-gray-900" id="reviewTelefono">-</p>
+                    </div>
+                </div>
+                
+                <div class="form-group" style="display: flex; align-items: center; gap: 0.5rem;">
+                    <input type="checkbox" id="terms" style="width: auto;" required>
+                    <label for="terms" style="margin: 0; font-size: 0.875rem;">
+                        Acepto los <a href="#" style="color: #334155;">términos y condiciones</a>
+                    </label>
+                </div>
+                
+                <div class="flex gap-3">
+                    <button type="button" onclick="nextStep(2)" class="btn btn-outline" style="flex: 1;">
+                        Atrás
+                    </button>
+                    <button type="submit" class="btn btn-primary" style="flex: 1;">
+                        Crear Cuenta
+                    </button>
+                </div>
+            </form>
+            
+            <div class="text-center mt-4">
+                <p class="text-sm text-gray-600">
+                    ¿Ya tienes cuenta? <a href="index.html" style="color: #334155; text-decoration: none;">Inicia sesión</a>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function nextStep(step) {
+            // Ocultar todos los formularios
+            document.querySelectorAll('.signup-form').forEach(form => {
+                form.style.display = 'none';
+            });
+            
+            // Remover active de todos los steps
+            document.querySelectorAll('.progress-step').forEach(s => {
+                s.classList.remove('active', 'completed');
+            });
+            
+            // Mostrar el formulario actual
+            document.getElementById('signupStep' + step).style.display = 'block';
+            
+            // Actualizar el indicador de progreso
+            for (let i = 1; i <= 3; i++) {
+                const stepEl = document.getElementById('step' + i);
+                if (i < step) {
+                    stepEl.classList.add('completed');
+                } else if (i === step) {
+                    stepEl.classList.add('active');
+                }
+            }
+            
+            // Si es el paso 3, llenar el resumen
+            if (step === 3) {
+                document.getElementById('reviewNombre').textContent = document.getElementById('nombre').value;
+                document.getElementById('reviewEmail').textContent = document.getElementById('email1').value;
+                document.getElementById('reviewEmpresa').textContent = document.getElementById('empresa').value;
+                document.getElementById('reviewTelefono').textContent = document.getElementById('telefono').value;
+            }
+        }
+        
+        document.getElementById('signupStep3').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('¡Cuenta creada exitosamente!');
+            window.location.href = 'dashboard.html';
+        });
+    </script>
+</body>
+</html>

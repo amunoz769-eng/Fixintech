@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ver Factura - Sistema de Gestión de Tickets</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Menu Toggle Button (Mobile) -->
+    <button class="menu-toggle" onclick="toggleSidebar()" aria-label="Abrir menú">
+        <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+        </svg>
+    </button>
+
+    <!-- Sidebar Overlay (Mobile) -->
+    <div class="sidebar-overlay" id="sidebarOverlay" onclick="closeSidebar()"></div>
+
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-logo">
+            <svg width="24" height="24" fill="white" viewBox="0 0 24 24" style="display: inline-block; vertical-align: middle; margin-right: 8px;">
+                <path d="M12 2L2 7v10c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V7l-10-5z"/>
+            </svg>
+            HelpDesk
+        </div>
+        
+        <ul class="sidebar-nav">
+            <li>
+                <a href="dashboard.html">
+                    <span class="icon">📊</span>
+                    Dashboard
+                </a>
+            </li>
+            <li>
+                <a href="tickets.html">
+                    <span class="icon">🎫</span>
+                    Tickets
+                </a>
+            </li>
+            <li>
+                <a href="clients.html">
+                    <span class="icon">👥</span>
+                    Clientes
+                </a>
+            </li>
+            <li>
+                <a href="invoices.html" class="active">
+                    <span class="icon">📄</span>
+                    Facturas
+                </a>
+            </li>
+        </ul>
+        
+        <div style="position: absolute; bottom: 1.5rem; left: 1.5rem; right: 1.5rem;">
+            <a href="index.html" style="display: flex; align-items: center; gap: 0.75rem; padding: 0.75rem 1rem; color: #cbd5e1; text-decoration: none; border-radius: 0.5rem;">
+                <span class="icon">🚪</span>
+                Cerrar Sesión
+            </a>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-with-sidebar">
+        <!-- Header -->
+        <div class="flex items-center justify-between mb-6">
+            <div class="page-header">
+                <h1 class="page-title">Detalle de Factura</h1>
+                <p class="page-breadcrumb">/invoices/view</p>
+            </div>
+            <div style="display: flex; gap: 0.75rem;">
+                <a href="invoices.html" class="btn btn-outline">← Volver</a>
+                <button class="btn btn-primary" onclick="window.print()">🖨️ Imprimir</button>
+            </div>
+        </div>
+
+        <!-- Invoice Container -->
+        <div class="invoice-container card">
+            <!-- Header -->
+            <div class="invoice-header">
+                <div>
+                    <h2 style="font-size: 1.5rem; font-weight: 600; margin-bottom: 0.5rem;">FACTURA</h2>
+                    <p style="font-size: 1.25rem; color: #6b7280;">FAC-2024-002</p>
+                </div>
+                <div style="text-align: right;">
+                    <div style="font-size: 1.25rem; font-weight: bold; color: #334155; margin-bottom: 0.5rem;">HelpDesk</div>
+                    <p style="font-size: 0.875rem; color: #6b7280;">Sistema de Reparaciones</p>
+                    <p style="font-size: 0.875rem; color: #6b7280;">CIF: B-12345678</p>
+                    <p style="font-size: 0.875rem; color: #6b7280;">Calle Tecnología 100, Madrid</p>
+                </div>
+            </div>
+
+            <!-- Información Cliente y Factura -->
+            <div class="invoice-info">
+                <div class="invoice-section">
+                    <h3>CLIENTE</h3>
+                    <p style="font-weight: 600; margin-bottom: 0.25rem;">Ana López Martínez</p>
+                    <p style="font-size: 0.875rem; color: #6b7280;">DNI: 87654321B</p>
+                    <p style="font-size: 0.875rem; color: #6b7280;">Teléfono: 555-3393</p>
+                    <p style="font-size: 0.875rem; color: #6b7280;">Av. Libertad 32, Barcelona</p>
+                </div>
+                <div class="invoice-section">
+                    <h3>DETALLES DE FACTURA</h3>
+                    <p style="font-size: 0.875rem; margin-bottom: 0.25rem;"><strong>Fecha de emisión:</strong> 27/04/2024</p>
+                    <p style="font-size: 0.875rem; margin-bottom: 0.25rem;"><strong>Ticket asociado:</strong> #TK123</p>
+                    <p style="font-size: 0.875rem; margin-bottom: 0.25rem;"><strong>Forma de pago:</strong> Efectivo</p>
+                    <p style="font-size: 0.875rem;"><strong>Estado:</strong> <span class="badge badge-green">Pagado</span></p>
+                </div>
+            </div>
+
+            <!-- Detalles de Servicios -->
+            <div class="invoice-table">
+                <h3 style="font-size: 1.125rem; font-weight: 600; margin-bottom: 1rem;">SERVICIOS</h3>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Descripción</th>
+                            <th style="text-align: center;">Cantidad</th>
+                            <th style="text-align: right;">Precio Unit.</th>
+                            <th style="text-align: right;">Total</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <strong>Reparación de software</strong>
+                                <p style="font-size: 0.875rem; color: #6b7280; margin-top: 0.25rem;">Reinstalación sistema operativo macOS</p>
+                            </td>
+                            <td style="text-align: center;">1</td>
+                            <td style="text-align: right;">$80.00</td>
+                            <td style="text-align: right;">$80.00</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <strong>Mano de obra técnica</strong>
+                                <p style="font-size: 0.875rem; color: #6b7280; margin-top: 0.25rem;">2 horas de diagnóstico y reparación</p>
+                            </td>
+                            <td style="text-align: center;">2</td>
+                            <td style="text-align: right;">$0.00</td>
+                            <td style="text-align: right;">$0.00</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Totales -->
+            <div class="invoice-totals">
+                <div class="invoice-totals-box">
+                    <div class="invoice-total-row">
+                        <span>Subtotal:</span>
+                        <span>$80.00</span>
+                    </div>
+                    <div class="invoice-total-row">
+                        <span>IVA (16%):</span>
+                        <span>$12.80</span>
+                    </div>
+                    <div class="invoice-total-row final">
+                        <span>TOTAL:</span>
+                        <span>$92.80</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Notas -->
+            <div style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid #e5e7eb;">
+                <h3 style="font-size: 0.875rem; font-weight: 600; margin-bottom: 0.5rem; color: #6b7280;">NOTAS</h3>
+                <p style="font-size: 0.875rem; color: #6b7280;">Garantía de 30 días en el servicio prestado. Para cualquier consulta contactar al 555-0000.</p>
+            </div>
+
+            <!-- Firma -->
+            <div style="margin-top: 3rem; text-align: center;">
+                <div style="border-top: 2px solid #1f2937; width: 200px; margin: 0 auto;"></div>
+                <p style="margin-top: 0.5rem; font-size: 0.875rem; color: #6b7280;">Firma autorizada</p>
+            </div>
+        </div>
+    </main>
+
+    <style>
+        @media print {
+            .sidebar,
+            .page-header,
+            .btn {
+                display: none !important;
+            }
+            
+            .main-with-sidebar {
+                margin-left: 0 !important;
+                padding: 0 !important;
+            }
+            
+            .invoice-container {
+                box-shadow: none !important;
+                padding: 2cm !important;
+            }
+        }
+    </style>
+    <script src="sidebar.js"></script>
+</body>
+</html>

@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clientes - Sistema de Gestión de Tickets</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Menu Toggle Button (Mobile) -->
+    <button class="menu-toggle" onclick="toggleSidebar()" aria-label="Abrir menú">
+        <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+        </svg>
+    </button>
+
+    <!-- Sidebar Overlay (Mobile) -->
+    <div class="sidebar-overlay" id="sidebarOverlay" onclick="closeSidebar()"></div>
+
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-logo">
+            <svg width="24" height="24" fill="white" viewBox="0 0 24 24" style="display: inline-block; vertical-align: middle; margin-right: 8px;">
+                <path d="M12 2L2 7v10c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V7l-10-5z"/>
+            </svg>
+            HelpDesk
+        </div>
+        
+        <ul class="sidebar-nav">
+            <li>
+                <a href="dashboard.html">
+                    <span class="icon">📊</span>
+                    Dashboard
+                </a>
+            </li>
+            <li>
+                <a href="tickets.html">
+                    <span class="icon">🎫</span>
+                    Tickets
+                </a>
+            </li>
+            <li>
+                <a href="clients.html" class="active">
+                    <span class="icon">👥</span>
+                    Clientes
+                </a>
+            </li>
+            <li>
+                <a href="invoices.html">
+                    <span class="icon">📄</span>
+                    Facturas
+                </a>
+            </li>
+        </ul>
+        
+        <div style="position: absolute; bottom: 1.5rem; left: 1.5rem; right: 1.5rem;">
+            <a href="index.html" style="display: flex; align-items: center; gap: 0.75rem; padding: 0.75rem 1rem; color: #cbd5e1; text-decoration: none; border-radius: 0.5rem;">
+                <span class="icon">🚪</span>
+                Cerrar Sesión
+            </a>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-with-sidebar">
+        <!-- Header -->
+        <div class="flex items-center justify-between mb-6">
+            <div class="page-header">
+                <h1 class="page-title">Gestión de Clientes</h1>
+                <p class="page-breadcrumb">/clients</p>
+            </div>
+        </div>
+
+        <!-- Clients Table Card -->
+        <div class="card">
+            <div class="card-header">
+                <div class="flex items-center justify-between">
+                    <button class="btn btn-primary" onclick="openClientModal()">
+                        <span>+</span>
+                        Nuevo Cliente
+                    </button>
+
+                    <div class="search-box">
+                        <svg class="search-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+                        </svg>
+                        <input type="text" class="form-input" placeholder="Buscar cliente..." style="padding-left: 2.5rem;">
+                    </div>
+                </div>
+            </div>
+
+            <div class="table-container">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>DNI</th>
+                            <th>Nombre</th>
+                            <th>Teléfono</th>
+                            <th>Dirección</th>
+                            <th>Tickets</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>12345678A</td>
+                            <td>Juan Pérez García</td>
+                            <td>555-2222</td>
+                            <td class="truncate" style="max-width: 200px;">Calle Mayor 15, Madrid</td>
+                            <td><span class="badge badge-blue">2</span></td>
+                            <td>
+                                <a href="client-detail.html?id=12345678A" class="btn btn-primary btn-sm">Ver</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>87654321B</td>
+                            <td>Ana López Martínez</td>
+                            <td>555-3393</td>
+                            <td class="truncate" style="max-width: 200px;">Av. Libertad 32, Barcelona</td>
+                            <td><span class="badge badge-blue">1</span></td>
+                            <td>
+                                <a href="client-detail.html?id=87654321B" class="btn btn-primary btn-sm">Ver</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>45678912C</td>
+                            <td>Pedro Gómez Ruiz</td>
+                            <td>555-4444</td>
+                            <td class="truncate" style="max-width: 200px;">Plaza España 8, Valencia</td>
+                            <td><span class="badge badge-blue">1</span></td>
+                            <td>
+                                <a href="client-detail.html?id=45678912C" class="btn btn-primary btn-sm">Ver</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>78912345D</td>
+                            <td>Laura Díaz Sánchez</td>
+                            <td>555-5555</td>
+                            <td class="truncate" style="max-width: 200px;">Calle Sol 22, Sevilla</td>
+                            <td><span class="badge badge-blue">1</span></td>
+                            <td>
+                                <a href="client-detail.html?id=78912345D" class="btn btn-primary btn-sm">Ver</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>32165498E</td>
+                            <td>Carlos Fernández Torres</td>
+                            <td>555-6666</td>
+                            <td class="truncate" style="max-width: 200px;">Av. Principal 45, Málaga</td>
+                            <td><span class="badge badge-blue">1</span></td>
+                            <td>
+                                <a href="client-detail.html?id=32165498E" class="btn btn-primary btn-sm">Ver</a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="pagination">
+                <button class="active">1</button>
+            </div>
+        </div>
+    </main>
+
+    <!-- Modal Nuevo Cliente -->
+    <div id="clientModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">Nuevo Cliente</h2>
+                <button class="modal-close" onclick="closeClientModal()">&times;</button>
+            </div>
+            <form id="clientForm" onsubmit="handleClientSubmit(event)">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label class="form-label">DNI / NIF *</label>
+                        <input type="text" class="form-input" name="dni" required placeholder="12345678A">
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Nombre Completo *</label>
+                        <input type="text" class="form-input" name="nombre" required placeholder="Juan Pérez García">
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Teléfono *</label>
+                        <input type="tel" class="form-input" name="telefono" required placeholder="555-1234">
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Email</label>
+                        <input type="email" class="form-input" name="email" placeholder="cliente@email.com">
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Dirección *</label>
+                        <input type="text" class="form-input" name="direccion" required placeholder="Calle Mayor 15">
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Ciudad</label>
+                        <input type="text" class="form-input" name="ciudad" placeholder="Madrid">
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Código Postal</label>
+                        <input type="text" class="form-input" name="codigo_postal" placeholder="28001">
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Notas</label>
+                        <textarea class="form-textarea" name="notas" placeholder="Información adicional del cliente..."></textarea>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline" onclick="closeClientModal()">Cancelar</button>
+                    <button type="submit" class="btn btn-primary">Crear Cliente</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        function openClientModal() {
+            document.getElementById('clientModal').classList.add('show');
+        }
+
+        function closeClientModal() {
+            document.getElementById('clientModal').classList.remove('show');
+            document.getElementById('clientForm').reset();
+        }
+
+        function handleClientSubmit(event) {
+            event.preventDefault();
+            const formData = new FormData(event.target);
+            const clientData = Object.fromEntries(formData);
+
+            console.log('Nuevo cliente:', clientData);
+            alert('Cliente creado exitosamente:\n\nDNI: ' + clientData.dni + '\nNombre: ' + clientData.nombre);
+
+            closeClientModal();
+        }
+
+        // Cerrar modal al hacer clic fuera
+        window.onclick = function(event) {
+            const modal = document.getElementById('clientModal');
+            if (event.target === modal) {
+                closeClientModal();
+            }
+        }
+    </script>
+    <script src="sidebar.js"></script>
+</body>
+</html>

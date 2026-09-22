@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Sistema de Gestión de Tickets</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Menu Toggle Button (Mobile) -->
+    <button class="menu-toggle" onclick="toggleSidebar()" aria-label="Abrir menú">
+        <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+        </svg>
+    </button>
+
+    <!-- Sidebar Overlay (Mobile) -->
+    <div class="sidebar-overlay" id="sidebarOverlay" onclick="closeSidebar()"></div>
+
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-logo">
+            <svg width="24" height="24" fill="white" viewBox="0 0 24 24" style="display: inline-block; vertical-align: middle; margin-right: 8px;">
+                <path d="M12 2L2 7v10c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V7l-10-5z"/>
+            </svg>
+            HelpDesk
+        </div>
+        
+        <ul class="sidebar-nav">
+            <li>
+                <a href="dashboard.html" class="active">
+                    <span class="icon">📊</span>
+                    Dashboard
+                </a>
+            </li>
+            <li>
+                <a href="tickets.html">
+                    <span class="icon">🎫</span>
+                    Tickets
+                </a>
+            </li>
+            <li>
+                <a href="clients.html">
+                    <span class="icon">👥</span>
+                    Clientes
+                </a>
+            </li>
+            <li>
+                <a href="invoices.html">
+                    <span class="icon">📄</span>
+                    Facturas
+                </a>
+            </li>
+        </ul>
+        
+        <div style="position: absolute; bottom: 1.5rem; left: 1.5rem; right: 1.5rem;">
+            <a href="index.html" style="display: flex; align-items: center; gap: 0.75rem; padding: 0.75rem 1rem; color: #cbd5e1; text-decoration: none; border-radius: 0.5rem; transition: all 0.2s;">
+                <span class="icon">🚪</span>
+                Cerrar Sesión
+            </a>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-with-sidebar">
+        <!-- Header -->
+        <div class="flex items-center justify-between mb-6">
+            <div class="page-header">
+                <h1 class="page-title">Panel Principal</h1>
+                <p class="page-breadcrumb">/dashboard</p>
+            </div>
+        </div>
+
+        <!-- Stats Cards -->
+        <div class="grid grid-cols-3 gap-6 mb-6">
+            <div class="stats-card">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-sm text-gray-500 mb-1">Total Tickets</p>
+                        <p class="text-3xl">5</p>
+                    </div>
+                    <div class="stats-card-icon blue">
+                        <span>📋</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="stats-card">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-sm text-gray-500 mb-1">Tickets Abiertos</p>
+                        <p class="text-3xl">1</p>
+                    </div>
+                    <div class="stats-card-icon yellow">
+                        <span>⚠️</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="stats-card">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-sm text-gray-500 mb-1">Clientes Activos</p>
+                        <p class="text-3xl">5</p>
+                    </div>
+                    <div class="stats-card-icon green">
+                        <span>👥</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tickets Table Card -->
+        <div class="card">
+            <div class="card-header">
+                <div class="flex items-center justify-between mb-4">
+                    <h2 class="text-xl">Tickets Recientes</h2>
+                </div>
+
+                <div class="flex items-center justify-between">
+                    <button class="btn btn-primary" onclick="openTicketModal()">
+                        <span>+</span>
+                        Nuevo Ticket
+                    </button>
+
+                    <div class="search-box">
+                        <svg class="search-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+                        </svg>
+                        <input type="text" class="form-input" placeholder="Buscar ticket..." style="padding-left: 2.5rem;">
+                    </div>
+                </div>
+            </div>
+
+            <div class="table-container">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Ticket</th>
+                            <th>Cliente</th>
+                            <th>Tipo de Avería</th>
+                            <th>Estado</th>
+                            <th>Fecha</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>#TK124</td>
+                            <td>Juan Pérez García</td>
+                            <td>Pantalla rota</td>
+                            <td><span class="badge badge-yellow">Abierto</span></td>
+                            <td>12/03/2026</td>
+                            <td>
+                                <a href="ticket-detail.html?id=TK124" class="btn btn-primary btn-sm">Ver</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>#TK123</td>
+                            <td>Ana López Martínez</td>
+                            <td>Software</td>
+                            <td><span class="badge badge-teal">Cerrado</span></td>
+                            <td>25/04/2024</td>
+                            <td>
+                                <a href="ticket-detail.html?id=TK123" class="btn btn-primary btn-sm">Ver</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>#TK122</td>
+                            <td>Pedro Gómez Ruiz</td>
+                            <td>Hardware</td>
+                            <td><span class="badge badge-teal">Cerrado</span></td>
+                            <td>22/04/2024</td>
+                            <td>
+                                <a href="ticket-detail.html?id=TK122" class="btn btn-primary btn-sm">Ver</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>#TK121</td>
+                            <td>Laura Díaz Sánchez</td>
+                            <td>Batería</td>
+                            <td><span class="badge badge-teal">Cerrado</span></td>
+                            <td>20/04/2024</td>
+                            <td>
+                                <a href="ticket-detail.html?id=TK121" class="btn btn-primary btn-sm">Ver</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>#TK100</td>
+                            <td>Carlos Fernández Torres</td>
+                            <td>Conectividad</td>
+                            <td><span class="badge badge-teal">Cerrado</span></td>
+                            <td>15/03/2024</td>
+                            <td>
+                                <a href="ticket-detail.html?id=TK100" class="btn btn-primary btn-sm">Ver</a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="pagination">
+                <button class="active">1</button>
+            </div>
+        </div>
+    </main>
+
+    <!-- Modal Nuevo Ticket -->
+    <div id="ticketModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">Nuevo Ticket</h2>
+                <button class="modal-close" onclick="closeTicketModal()">&times;</button>
+            </div>
+            <form id="ticketForm" onsubmit="handleTicketSubmit(event)">
+                <div class="modal-body">
+                    <!-- Paso 1: Seleccionar Cliente -->
+                    <div id="step1" class="ticket-step">
+                        <h3 style="font-size: 1.125rem; font-weight: 600; margin-bottom: 1rem;">Seleccionar Cliente</h3>
+                        
+                        <div class="form-group">
+                            <label class="form-label">Cliente *</label>
+                            <select class="form-select" name="cliente_dni" required onchange="showStep2()">
+                                <option value="">Seleccione un cliente...</option>
+                                <option value="12345678A">Juan Pérez García (12345678A)</option>
+                                <option value="87654321B">Ana López Martínez (87654321B)</option>
+                                <option value="45678912C">Pedro Gómez Ruiz (45678912C)</option>
+                                <option value="78912345D">Laura Díaz Sánchez (78912345D)</option>
+                                <option value="32165498E">Carlos Fernández Torres (32165498E)</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Paso 2: Datos del Ticket -->
+                    <div id="step2" class="ticket-step" style="display: none;">
+                        <h3 style="font-size: 1.125rem; font-weight: 600; margin-bottom: 1rem;">Datos del Ticket</h3>
+                        
+                        <div class="form-group">
+                            <label class="form-label">Tipo de Equipo *</label>
+                            <select class="form-select" name="tipo_equipo" required>
+                                <option value="">Seleccione tipo...</option>
+                                <option value="Smartphone">Smartphone</option>
+                                <option value="Tablet">Tablet</option>
+                                <option value="Laptop">Laptop</option>
+                                <option value="Desktop">PC de escritorio</option>
+                                <option value="Impresora">Impresora</option>
+                                <option value="Monitor">Monitor</option>
+                                <option value="Otro">Otro</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">Marca</label>
+                            <input type="text" class="form-input" name="marca" placeholder="Apple, Samsung, HP...">
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">Modelo</label>
+                            <input type="text" class="form-input" name="modelo" placeholder="iPhone 12, Galaxy S21...">
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">Tipo de Avería *</label>
+                            <select class="form-select" name="tipo_averia" required>
+                                <option value="">Seleccione tipo...</option>
+                                <option value="Pantalla rota">Pantalla rota</option>
+                                <option value="Batería">Problemas de batería</option>
+                                <option value="Hardware">Fallo de hardware</option>
+                                <option value="Software">Problemas de software</option>
+                                <option value="Conectividad">Problemas de conectividad</option>
+                                <option value="Audio">Problemas de audio</option>
+                                <option value="Cámara">Problemas de cámara</option>
+                                <option value="Otro">Otro</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">Descripción del Problema *</label>
+                            <textarea class="form-textarea" name="descripcion" required placeholder="Describa el problema que presenta el equipo..."></textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">Prioridad *</label>
+                            <select class="form-select" name="prioridad" required>
+                                <option value="Baja">Baja</option>
+                                <option value="Media" selected>Media</option>
+                                <option value="Alta">Alta</option>
+                                <option value="Urgente">Urgente</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">Precio Estimado</label>
+                            <input type="number" class="form-input" name="precio_estimado" step="0.01" placeholder="0.00">
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">Notas Adicionales</label>
+                            <textarea class="form-textarea" name="notas" placeholder="Cualquier información adicional relevante..." style="min-height: 80px;"></textarea>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline" onclick="closeTicketModal()">Cancelar</button>
+                    <button type="submit" class="btn btn-primary" id="submitBtn" style="display: none;">Crear Ticket</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Funciones del Modal de Ticket
+        function openTicketModal() {
+            document.getElementById('ticketModal').classList.add('show');
+            document.getElementById('step1').style.display = 'block';
+            document.getElementById('step2').style.display = 'none';
+            document.getElementById('submitBtn').style.display = 'none';
+            document.body.style.overflow = 'hidden'; // Prevenir scroll del body
+        }
+
+        function closeTicketModal() {
+            document.getElementById('ticketModal').classList.remove('show');
+            document.getElementById('ticketForm').reset();
+            document.body.style.overflow = ''; // Restaurar scroll del body
+        }
+
+        function showStep2() {
+            const clientSelect = document.querySelector('select[name="cliente_dni"]');
+            if (clientSelect.value) {
+                document.getElementById('step2').style.display = 'block';
+                document.getElementById('submitBtn').style.display = 'inline-flex';
+            }
+        }
+
+        function handleTicketSubmit(event) {
+            event.preventDefault();
+            const formData = new FormData(event.target);
+            const ticketData = Object.fromEntries(formData);
+
+            console.log('Nuevo ticket:', ticketData);
+            
+            const ticketNum = 'TK' + Math.floor(Math.random() * 1000 + 100);
+            alert('Ticket creado exitosamente!\n\nNúmero: #' + ticketNum + '\nCliente: ' + event.target.querySelector('select[name="cliente_dni"] option:checked').textContent + '\nTipo de avería: ' + ticketData.tipo_averia);
+
+            closeTicketModal();
+        }
+
+        // Cerrar modal al hacer clic fuera
+        window.onclick = function(event) {
+            const modal = document.getElementById('ticketModal');
+            if (event.target === modal) {
+                closeTicketModal();
+            }
+        }
+
+        // Ajustar layout al cambiar el tamaño de la ventana
+        window.addEventListener('resize', () => {
+            if (window.innerWidth > 768) {
+                closeSidebar();
+            }
+        });
+    </script>
+    <script src="sidebar.js"></script>
+</body>
+</html>

@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nueva Factura - Sistema de Gestión de Tickets</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .checkbox-label {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem;
+            cursor: pointer;
+            border-radius: 0.25rem;
+            transition: background-color 0.2s;
+        }
+        .checkbox-label:hover {
+            background-color: #f9fafb;
+        }
+        .ticket-checkbox {
+            width: 16px;
+            height: 16px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <!-- Menu Toggle Button (Mobile) -->
+    <button class="menu-toggle" onclick="toggleSidebar()" aria-label="Abrir menú">
+        <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+        </svg>
+    </button>
+
+    <!-- Sidebar Overlay (Mobile) -->
+    <div class="sidebar-overlay" id="sidebarOverlay" onclick="closeSidebar()"></div>
+
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-logo">
+            <svg width="24" height="24" fill="white" viewBox="0 0 24 24" style="display: inline-block; vertical-align: middle; margin-right: 8px;">
+                <path d="M12 2L2 7v10c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V7l-10-5z"/>
+            </svg>
+            HelpDesk
+        </div>
+        
+        <ul class="sidebar-nav">
+            <li>
+                <a href="dashboard.html">
+                    <span class="icon">📊</span>
+                    Dashboard
+                </a>
+            </li>
+            <li>
+                <a href="tickets.html">
+                    <span class="icon">🎫</span>
+                    Tickets
+                </a>
+            </li>
+            <li>
+                <a href="clients.html">
+                    <span class="icon">👥</span>
+                    Clientes
+                </a>
+            </li>
+            <li>
+                <a href="invoices.html" class="active">
+                    <span class="icon">📄</span>
+                    Facturas
+                </a>
+            </li>
+        </ul>
+        
+        <div style="position: absolute; bottom: 1.5rem; left: 1.5rem; right: 1.5rem;">
+            <a href="index.html" style="display: flex; align-items: center; gap: 0.75rem; padding: 0.75rem 1rem; color: #cbd5e1; text-decoration: none; border-radius: 0.5rem;">
+                <span class="icon">🚪</span>
+                Cerrar Sesión
+            </a>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-with-sidebar">
+        <!-- Header -->
+        <div class="flex items-center gap-4 mb-6">
+            <a href="invoices.html" class="text-gray-600" style="text-decoration: none;">
+                <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="vertical-align: middle;">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+                </svg>
+            </a>
+            <div class="page-header">
+                <h1 class="page-title">Nueva Factura</h1>
+                <p class="page-breadcrumb">/invoices/new</p>
+            </div>
+        </div>
+
+        <!-- Invoice Form Card -->
+        <div class="card max-w-4xl">
+            <div class="card-header">
+                <h2 class="text-xl">Generar Factura</h2>
+            </div>
+
+            <div class="card-body space-y-6">
+                <!-- Client Selection -->
+                <div>
+                    <label class="form-label">Seleccionar Cliente *</label>
+                    <div class="dropdown">
+                        <button type="button" class="dropdown-toggle" id="clientDropdownBtn" onclick="toggleDropdown('clientDropdown')">
+                            <span id="selectedClientText" style="color: #9ca3af;">Selecciona un cliente...</span>
+                            <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                            </svg>
+                        </button>
+                        <div class="dropdown-menu" id="clientDropdown">
+                            <div class="dropdown-item" onclick="selectClient('12345678A', 'Juan Pérez García', '555-2222')">
+                                <div>
+                                    <p class="text-gray-900">Juan Pérez García</p>
+                                    <p class="text-sm text-gray-500">DNI: 12345678A • 555-2222</p>
+                                </div>
+                            </div>
+                            <div class="dropdown-item" onclick="selectClient('87654321B', 'Ana López Martínez', '555-3393')">
+                                <div>
+                                    <p class="text-gray-900">Ana López Martínez</p>
+                                    <p class="text-sm text-gray-500">DNI: 87654321B • 555-3393</p>
+                                </div>
+                            </div>
+                            <div class="dropdown-item" onclick="selectClient('45678912C', 'Pedro Gómez Ruiz', '555-4444')">
+                                <div>
+                                    <p class="text-gray-900">Pedro Gómez Ruiz</p>
+                                    <p class="text-sm text-gray-500">DNI: 45678912C • 555-4444</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Selected Client Info -->
+                <div id="clientInfo" class="bg-gray-50 rounded p-4" style="display: none;">
+                    <h3 class="text-sm text-gray-500 mb-2">Cliente seleccionado</h3>
+                    <p class="text-gray-900" id="clientName"></p>
+                    <p class="text-sm text-gray-600" id="clientDNI"></p>
+                    <p class="text-sm text-gray-600" id="clientPhone"></p>
+                </div>
+
+                <!-- Tickets Selection -->
+                <div id="ticketsSection" style="display: none;">
+                    <label class="form-label">Seleccionar Tickets * (<span id="ticketCount">0</span> seleccionados)</label>
+                    <div class="border rounded" style="max-height: 320px; overflow-y: auto;">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th style="width: 40px;"></th>
+                                    <th>Ticket</th>
+                                    <th>Tipo Avería</th>
+                                    <th>Fecha</th>
+                                    <th>Estado</th>
+                                    <th>Monto</th>
+                                </tr>
+                            </thead>
+                            <tbody id="ticketsTableBody">
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Pricing Summary -->
+                <div id="summarySection" style="display: none; border-top: 1px solid #e5e7eb; padding-top: 1.5rem;" class="space-y-3">
+                    <h3 class="text-lg mb-4">Resumen de Factura</h3>
+                    
+                    <div id="selectedTicketsList" class="space-y-2 mb-4">
+                    </div>
+
+                    <div style="border-top: 1px solid #e5e7eb; padding-top: 0.75rem;" class="space-y-2">
+                        <div class="flex justify-between">
+                            <span class="text-gray-600">Base Imponible (Subtotal)</span>
+                            <span class="text-gray-900" id="subtotalAmount">$0.00</span>
+                        </div>
+                        
+                        <div class="flex justify-between">
+                            <span class="text-gray-600">IVA (16%)</span>
+                            <span class="text-gray-900" id="ivaAmount">$0.00</span>
+                        </div>
+                        
+                        <div class="flex justify-between py-3" style="border-top: 2px solid #e5e7eb;">
+                            <span class="text-lg">Total a Pagar</span>
+                            <span class="text-lg" id="totalAmount">$0.00</span>
+                        </div>
+                    </div>
+
+                    <!-- Forma de Pago -->
+                    <div style="padding-top: 0.75rem;">
+                        <label class="form-label">Forma de Pago</label>
+                        <select class="form-select">
+                            <option>Efectivo</option>
+                            <option>Tarjeta de crédito</option>
+                            <option>Tarjeta de débito</option>
+                            <option>Transferencia</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="flex gap-4" style="padding-top: 1rem; border-top: 1px solid #e5e7eb;">
+                    <a href="invoices.html" class="btn btn-outline">
+                        Cancelar
+                    </a>
+                    <button onclick="generateInvoice()" class="btn btn-primary" id="generateBtn" disabled style="flex: 1; opacity: 0.5;">
+                        Generar Factura
+                    </button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        let selectedClient = null;
+        let selectedTickets = [];
+        
+        const ticketsData = {
+            '12345678A': [
+                { id: 'TK124', type: 'Pantalla rota', date: '12/03/2026', status: 'Abierto', amount: 250.00 },
+                { id: 'TK100', type: 'Conectividad', date: '15/03/2024', status: 'Cerrado', amount: 45.00 }
+            ],
+            '87654321B': [
+                { id: 'TK123', type: 'Software', date: '25/04/2024', status: 'Cerrado', amount: 80.00 }
+            ],
+            '45678912C': [
+                { id: 'TK122', type: 'Hardware', date: '22/04/2024', status: 'Cerrado', amount: 120.00 }
+            ]
+        };
+
+        function toggleDropdown(id) {
+            const dropdown = document.getElementById(id);
+            dropdown.classList.toggle('show');
+        }
+
+        function selectClient(dni, name, phone) {
+            selectedClient = { dni, name, phone };
+            selectedTickets = [];
+            
+            document.getElementById('selectedClientText').textContent = name;
+            document.getElementById('selectedClientText').style.color = '#111827';
+            document.getElementById('clientName').textContent = name;
+            document.getElementById('clientDNI').textContent = 'DNI: ' + dni;
+            document.getElementById('clientPhone').textContent = 'Teléfono: ' + phone;
+            document.getElementById('clientInfo').style.display = 'block';
+            
+            toggleDropdown('clientDropdown');
+            loadTickets(dni);
+        }
+
+        function loadTickets(dni) {
+            const tickets = ticketsData[dni] || [];
+            const tbody = document.getElementById('ticketsTableBody');
+            tbody.innerHTML = '';
+            
+            if (tickets.length > 0) {
+                document.getElementById('ticketsSection').style.display = 'block';
+                
+                tickets.forEach(ticket => {
+                    const row = tbody.insertRow();
+                    row.innerHTML = `
+                        <td><input type="checkbox" class="ticket-checkbox" value="${ticket.id}" data-amount="${ticket.amount}" onchange="updateSelection()"></td>
+                        <td>#${ticket.id}</td>
+                        <td>${ticket.type}</td>
+                        <td>${ticket.date}</td>
+                        <td><span class="badge ${ticket.status === 'Abierto' ? 'badge-yellow' : 'badge-teal'}">${ticket.status}</span></td>
+                        <td>$${ticket.amount.toFixed(2)}</td>
+                    `;
+                    row.style.cursor = 'pointer';
+                    row.onclick = function(e) {
+                        if (e.target.type !== 'checkbox') {
+                            const checkbox = this.querySelector('input[type="checkbox"]');
+                            checkbox.checked = !checkbox.checked;
+                            updateSelection();
+                        }
+                    };
+                });
+            }
+            updateSelection();
+        }
+
+        function updateSelection() {
+            const checkboxes = document.querySelectorAll('.ticket-checkbox:checked');
+            selectedTickets = Array.from(checkboxes).map(cb => ({
+                id: cb.value,
+                amount: parseFloat(cb.dataset.amount)
+            }));
+            
+            document.getElementById('ticketCount').textContent = selectedTickets.length;
+            
+            if (selectedTickets.length > 0) {
+                document.getElementById('summarySection').style.display = 'block';
+                updateSummary();
+                document.getElementById('generateBtn').disabled = false;
+                document.getElementById('generateBtn').style.opacity = '1';
+            } else {
+                document.getElementById('summarySection').style.display = 'none';
+                document.getElementById('generateBtn').disabled = true;
+                document.getElementById('generateBtn').style.opacity = '0.5';
+            }
+        }
+
+        function updateSummary() {
+            const subtotal = selectedTickets.reduce((sum, t) => sum + t.amount, 0);
+            const iva = subtotal * 0.16;
+            const total = subtotal + iva;
+            
+            document.getElementById('subtotalAmount').textContent = '$' + subtotal.toFixed(2);
+            document.getElementById('ivaAmount').textContent = '$' + iva.toFixed(2);
+            document.getElementById('totalAmount').textContent = '$' + total.toFixed(2);
+            
+            const listDiv = document.getElementById('selectedTicketsList');
+            listDiv.innerHTML = selectedTickets.map(ticket => `
+                <div class="flex justify-between text-sm py-2 border-b" style="border-color: #f3f4f6;">
+                    <span class="text-gray-900">#${ticket.id}</span>
+                    <span class="text-gray-900">$${ticket.amount.toFixed(2)}</span>
+                </div>
+            `).join('');
+        }
+
+        function generateInvoice() {
+            if (!selectedClient || selectedTickets.length === 0) {
+                alert('Por favor selecciona un cliente y al menos un ticket');
+                return;
+            }
+            alert('Factura generada exitosamente');
+            window.location.href = 'invoices.html';
+        }
+
+        // Cerrar dropdown al hacer clic fuera
+        document.addEventListener('click', function(e) {
+            if (!e.target.closest('.dropdown')) {
+                document.querySelectorAll('.dropdown-menu').forEach(menu => {
+                    menu.classList.remove('show');
+                });
+            }
+        });
+    </script>
+    <script src="sidebar.js"></script>
+</body>
+</html>

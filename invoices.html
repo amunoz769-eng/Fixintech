@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Facturas - Sistema de Gestión de Tickets</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Menu Toggle Button (Mobile) -->
+    <button class="menu-toggle" onclick="toggleSidebar()" aria-label="Abrir menú">
+        <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+        </svg>
+    </button>
+
+    <!-- Sidebar Overlay (Mobile) -->
+    <div class="sidebar-overlay" id="sidebarOverlay" onclick="closeSidebar()"></div>
+
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-logo">
+            <svg width="24" height="24" fill="white" viewBox="0 0 24 24" style="display: inline-block; vertical-align: middle; margin-right: 8px;">
+                <path d="M12 2L2 7v10c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V7l-10-5z"/>
+            </svg>
+            HelpDesk
+        </div>
+        
+        <ul class="sidebar-nav">
+            <li>
+                <a href="dashboard.html">
+                    <span class="icon">📊</span>
+                    Dashboard
+                </a>
+            </li>
+            <li>
+                <a href="tickets.html">
+                    <span class="icon">🎫</span>
+                    Tickets
+                </a>
+            </li>
+            <li>
+                <a href="clients.html">
+                    <span class="icon">👥</span>
+                    Clientes
+                </a>
+            </li>
+            <li>
+                <a href="invoices.html" class="active">
+                    <span class="icon">📄</span>
+                    Facturas
+                </a>
+            </li>
+        </ul>
+        
+        <div style="position: absolute; bottom: 1.5rem; left: 1.5rem; right: 1.5rem;">
+            <a href="index.html" style="display: flex; align-items: center; gap: 0.75rem; padding: 0.75rem 1rem; color: #cbd5e1; text-decoration: none; border-radius: 0.5rem;">
+                <span class="icon">🚪</span>
+                Cerrar Sesión
+            </a>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-with-sidebar">
+        <!-- Header -->
+        <div class="flex items-center justify-between mb-6">
+            <div class="page-header">
+                <h1 class="page-title">Facturas de Reparaciones</h1>
+                <p class="page-breadcrumb">/invoices</p>
+            </div>
+        </div>
+
+        <!-- Invoices Table Card -->
+        <div class="card">
+            <div class="card-header">
+                <div class="flex items-center justify-between">
+                    <a href="invoice-new.html" class="btn btn-primary">
+                        <span>+</span>
+                        Nueva Factura
+                    </a>
+
+                    <div class="search-box">
+                        <svg class="search-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+                        </svg>
+                        <input type="text" class="form-input" placeholder="Buscar factura..." style="padding-left: 2.5rem;">
+                    </div>
+                </div>
+            </div>
+
+            <div class="table-container">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>N° Factura</th>
+                            <th>Cliente</th>
+                            <th>Descripción</th>
+                            <th>Base Imponible</th>
+                            <th>IVA</th>
+                            <th>Total</th>
+                            <th>Fecha</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>FAC-2024-002</td>
+                            <td>
+                                Ana López Martínez
+                                <p class="text-xs text-gray-500">555-3393</p>
+                            </td>
+                            <td class="truncate" style="max-width: 250px;">Reparación de software - Reinstalación sistema operativo macOS</td>
+                            <td>$80.00</td>
+                            <td>$12.80</td>
+                            <td style="font-weight: 500;">$92.80</td>
+                            <td>27/04/2024</td>
+                            <td>
+                                <a href="invoice-view.html?id=FAC-2024-002" class="btn btn-primary btn-sm" style="gap: 0.25rem;">
+                                    📄 Ver
+                                </a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>FAC-2024-003</td>
+                            <td>
+                                Pedro Gómez Ruiz
+                                <p class="text-xs text-gray-500">555-4444</p>
+                            </td>
+                            <td class="truncate" style="max-width: 250px;">Reemplazo de fuente de alimentación</td>
+                            <td>$120.00</td>
+                            <td>$19.20</td>
+                            <td style="font-weight: 500;">$139.20</td>
+                            <td>25/04/2024</td>
+                            <td>
+                                <a href="invoice-view.html?id=FAC-2024-003" class="btn btn-primary btn-sm" style="gap: 0.25rem;">
+                                    📄 Ver
+                                </a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>FAC-2024-004</td>
+                            <td>
+                                Laura Díaz Sánchez
+                                <p class="text-xs text-gray-500">555-5555</p>
+                            </td>
+                            <td class="truncate" style="max-width: 250px;">Cambio de batería smartphone</td>
+                            <td>$60.00</td>
+                            <td>$9.60</td>
+                            <td style="font-weight: 500;">$69.60</td>
+                            <td>21/04/2024</td>
+                            <td>
+                                <a href="invoice-view.html?id=FAC-2024-004" class="btn btn-primary btn-sm" style="gap: 0.25rem;">
+                                    📄 Ver
+                                </a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>FAC-2024-005</td>
+                            <td>
+                                Carlos Fernández Torres
+                                <p class="text-xs text-gray-500">555-6666</p>
+                            </td>
+                            <td class="truncate" style="max-width: 250px;">Reemplazo de tarjeta WiFi</td>
+                            <td>$45.00</td>
+                            <td>$7.20</td>
+                            <td style="font-weight: 500;">$52.20</td>
+                            <td>17/03/2024</td>
+                            <td>
+                                <a href="invoice-view.html?id=FAC-2024-005" class="btn btn-primary btn-sm" style="gap: 0.25rem;">
+                                    📄 Ver
+                                </a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="pagination">
+                <button class="active">1</button>
+            </div>
+        </div>
+    </main>
+    <script src="sidebar.js"></script>
+</body>
+</html>
